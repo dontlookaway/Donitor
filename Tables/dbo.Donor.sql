@@ -97,6 +97,12 @@ As
                   , [I].[IsDeleted]
             From    [Inserted] As [I];
 GO
+ALTER TABLE [dbo].[Donor] ADD CONSTRAINT [BlockFutureDOBs] CHECK (([DateOfBirth]<=getdate()))
+GO
+ALTER TABLE [dbo].[Donor] ADD CONSTRAINT [BlockFutureDates] CHECK (([EnteredDate]<=getdate()))
+GO
+ALTER TABLE [dbo].[Donor] ADD CONSTRAINT [BlockFutureVerifiedDates] CHECK (([VerifiedDate]<=getdate()))
+GO
 ALTER TABLE [dbo].[Donor] ADD CONSTRAINT [PKDonorNo] PRIMARY KEY CLUSTERED  ([DonorNumber]) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[Donor] ADD CONSTRAINT [FK__Donor__Gender__182C9B23] FOREIGN KEY ([Gender]) REFERENCES [lookups].[Gender] ([Gender])
