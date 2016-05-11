@@ -95,6 +95,8 @@ SELECT [I].[DonorNumber]
      , [I].[EnteredDate]
      , [I].[VerifiedDate] From [Inserted] As [I]
 GO
+ALTER TABLE [dbo].[AnnualPhysical] ADD CONSTRAINT [BlockFuturePhysicalDates] CHECK (([DateOfPhysical]<=getdate()))
+GO
 ALTER TABLE [dbo].[AnnualPhysical] ADD CONSTRAINT [PK_PhysID] PRIMARY KEY CLUSTERED  ([PhysicalID]) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[AnnualPhysical] ADD CONSTRAINT [FK__AnnualPhy__Donor__1CF15040] FOREIGN KEY ([DonorNumber]) REFERENCES [dbo].[Donor] ([DonorNumber])
