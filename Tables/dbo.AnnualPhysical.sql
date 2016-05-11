@@ -14,10 +14,11 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-Create Trigger [dbo].[APDelete] On [dbo].[AnnualPhysical]
+
+CREATE Trigger [dbo].[APDelete] On [dbo].[AnnualPhysical]
     After Delete
 As
-Insert [dbo].[AnnualPhysicalLog]
+Insert [logs].[AnnualPhysicalLog]
         ( [DonorNumber]
         , [PhysicalID]
         , [ChangeType]
@@ -28,7 +29,7 @@ Insert [dbo].[AnnualPhysicalLog]
         , [EnteredDate]
         , [VerifiedDate]
         )
-SELECT [D].[DonorNumber]
+Select [D].[DonorNumber]
      , [D].[PhysicalID]
 	 , 'D'
      , [D].[DateOfPhysical]
@@ -42,10 +43,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-Create Trigger [dbo].[APInsert] On [dbo].[AnnualPhysical]
+CREATE Trigger [dbo].[APInsert] On [dbo].[AnnualPhysical]
     After Insert
 As
-Insert [dbo].[AnnualPhysicalLog]
+Insert [logs].[AnnualPhysicalLog]
         ( [DonorNumber]
         , [PhysicalID]
         , [ChangeType]
@@ -73,7 +74,7 @@ GO
 CREATE Trigger [dbo].[APUpdate] On [dbo].[AnnualPhysical]
     After Update
 As
-Insert [dbo].[AnnualPhysicalLog]
+Insert [logs].[AnnualPhysicalLog]
         ( [DonorNumber]
         , [PhysicalID]
         , [ChangeType]
