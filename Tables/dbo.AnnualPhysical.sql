@@ -10,6 +10,90 @@ CREATE TABLE [dbo].[AnnualPhysical]
 [VerifiedDate] [date] NULL
 ) ON [PRIMARY]
 GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+Create Trigger [dbo].[APDelete] On [dbo].[AnnualPhysical]
+    After Delete
+As
+Insert [dbo].[AnnualPhysicalLog]
+        ( [DonorNumber]
+        , [PhysicalID]
+        , [ChangeType]
+        , [DateOfPhysical]
+        , [Outcome]
+        , [EnteredBy]
+        , [VerifiedBy]
+        , [EnteredDate]
+        , [VerifiedDate]
+        )
+SELECT [D].[DonorNumber]
+     , [D].[PhysicalID]
+	 , 'D'
+     , [D].[DateOfPhysical]
+     , [D].[Outcome]
+     , [D].[EnteredBy]
+     , [D].[VerifiedBy]
+     , [D].[EnteredDate]
+     , [D].[VerifiedDate] From [Deleted] As [D]
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+Create Trigger [dbo].[APInsert] On [dbo].[AnnualPhysical]
+    After Insert
+As
+Insert [dbo].[AnnualPhysicalLog]
+        ( [DonorNumber]
+        , [PhysicalID]
+        , [ChangeType]
+        , [DateOfPhysical]
+        , [Outcome]
+        , [EnteredBy]
+        , [VerifiedBy]
+        , [EnteredDate]
+        , [VerifiedDate]
+        )
+SELECT [I].[DonorNumber]
+     , [I].[PhysicalID]
+	 , 'I'
+     , [I].[DateOfPhysical]
+     , [I].[Outcome]
+     , [I].[EnteredBy]
+     , [I].[VerifiedBy]
+     , [I].[EnteredDate]
+     , [I].[VerifiedDate] From [Inserted] As [I]
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE Trigger [dbo].[APUpdate] On [dbo].[AnnualPhysical]
+    After Update
+As
+Insert [dbo].[AnnualPhysicalLog]
+        ( [DonorNumber]
+        , [PhysicalID]
+        , [ChangeType]
+        , [DateOfPhysical]
+        , [Outcome]
+        , [EnteredBy]
+        , [VerifiedBy]
+        , [EnteredDate]
+        , [VerifiedDate]
+        )
+SELECT [I].[DonorNumber]
+     , [I].[PhysicalID]
+	 , 'U'
+     , [I].[DateOfPhysical]
+     , [I].[Outcome]
+     , [I].[EnteredBy]
+     , [I].[VerifiedBy]
+     , [I].[EnteredDate]
+     , [I].[VerifiedDate] From [Inserted] As [I]
+GO
 ALTER TABLE [dbo].[AnnualPhysical] ADD CONSTRAINT [PK_PhysID] PRIMARY KEY CLUSTERED  ([PhysicalID]) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[AnnualPhysical] ADD CONSTRAINT [FK__AnnualPhy__Donor__1CF15040] FOREIGN KEY ([DonorNumber]) REFERENCES [dbo].[Donor] ([DonorNumber])
