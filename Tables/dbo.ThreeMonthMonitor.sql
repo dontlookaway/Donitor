@@ -16,6 +16,8 @@ CREATE TABLE [dbo].[ThreeMonthMonitor]
 [VerifiedDate] [date] NULL
 ) ON [PRIMARY]
 GO
+ALTER TABLE [dbo].[ThreeMonthMonitor] ADD CONSTRAINT [PK_MonitorID] PRIMARY KEY CLUSTERED  ([MonitorID]) ON [PRIMARY]
+GO
 ALTER TABLE [dbo].[ThreeMonthMonitor] ADD CONSTRAINT [FK__ThreeMont__Donor__2C3393D0] FOREIGN KEY ([DonorNumber]) REFERENCES [dbo].[Donor] ([DonorNumber])
 GO
 ALTER TABLE [dbo].[ThreeMonthMonitor] ADD CONSTRAINT [FK__ThreeMont__Verif__2E1BDC42] FOREIGN KEY ([VerifiedBy]) REFERENCES [lookups].[Users] ([UserCode])
