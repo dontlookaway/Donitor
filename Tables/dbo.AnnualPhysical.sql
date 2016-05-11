@@ -10,6 +10,8 @@ CREATE TABLE [dbo].[AnnualPhysical]
 [VerifiedDate] [date] NULL
 ) ON [PRIMARY]
 GO
+ALTER TABLE [dbo].[AnnualPhysical] ADD CONSTRAINT [PK_PhysID] PRIMARY KEY CLUSTERED  ([PhysicalID]) ON [PRIMARY]
+GO
 ALTER TABLE [dbo].[AnnualPhysical] ADD CONSTRAINT [FK__AnnualPhy__Donor__1CF15040] FOREIGN KEY ([DonorNumber]) REFERENCES [dbo].[Donor] ([DonorNumber])
 GO
 ALTER TABLE [dbo].[AnnualPhysical] ADD CONSTRAINT [FK__AnnualPhy__Outco__1DE57479] FOREIGN KEY ([Outcome]) REFERENCES [lookups].[PhysicalOutcome] ([Outcome])
