@@ -17,7 +17,7 @@ GO
 CREATE Trigger [dbo].[DonorDelete] On [dbo].[Donor]
     After Delete
 As
-    Insert  [dbo].[DonorLog]
+    Insert  [logs].[DonorLog]
             ( [DonorNumber]
             , [DateOfBirth]
             , [Gender]
@@ -46,7 +46,7 @@ GO
 CREATE Trigger [dbo].[DonorInsert] On [dbo].[Donor]
     After Insert
 As
-    Insert  [dbo].[DonorLog]
+    Insert  [logs].[DonorLog]
             ( [DonorNumber]
             , [DateOfBirth]
             , [Gender]
@@ -75,7 +75,7 @@ GO
 CREATE Trigger [dbo].[DonorUpdate] On [dbo].[Donor]
     After Update
 As
-    Insert  [dbo].[DonorLog]
+    Insert  [logs].[DonorLog]
             ( [DonorNumber]
             , [DateOfBirth]
             , [Gender]
