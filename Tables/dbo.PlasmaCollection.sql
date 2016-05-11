@@ -157,6 +157,10 @@ SELECT [I].[DonorNumber]
      , [I].[EnteredDate]
      , [I].[VerifiedDate] From [Inserted] As [I]
 GO
+ALTER TABLE [dbo].[PlasmaCollection] ADD CONSTRAINT [blockfuturecollectiondate] CHECK (([CollectionDate]<=getdate()))
+GO
+ALTER TABLE [dbo].[PlasmaCollection] ADD CONSTRAINT [blockoldcollectiondate] CHECK ((datediff(year,[CollectionDate],getdate())<(3)))
+GO
 ALTER TABLE [dbo].[PlasmaCollection] ADD CONSTRAINT [PKCollectionIdDate] PRIMARY KEY CLUSTERED  ([CollectionID]) ON [PRIMARY]
 GO
 CREATE NONCLUSTERED INDEX [PlasmaCollection_Basic] ON [dbo].[PlasmaCollection] ([DonorNumber], [CollectionID], [CollectionDate]) ON [PRIMARY]
