@@ -19,6 +19,144 @@ CREATE TABLE [dbo].[PlasmaCollection]
 [VerifiedDate] [date] NULL
 ) ON [PRIMARY]
 GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE Trigger [dbo].[PCDelete] On [dbo].[PlasmaCollection]
+    After Delete
+As
+Insert [logs].[PlasmaCollectionLog]
+        ( [DonorNumber]
+        , [CollectionID]
+        , [ChangeType]
+        , [CollectionDate]
+        , [DonorWeight]
+        , [BodyTemp]
+        , [SystolicBloodPressure]
+        , [DiaSystolicBloodPressure]
+        , [Pulse]
+        , [Hematocrit]
+        , [TotalProtein]
+        , [BleedNumber]
+        , [VolumePlasmaCollected]
+        , [BloodLoss]
+        , [EnteredBy]
+        , [VerifiedBy]
+        , [EnteredDate]
+        , [VerifiedDate]
+        )
+SELECT [D].[DonorNumber]
+     , [D].[CollectionID]
+     , 'D'
+	 , [D].[CollectionDate]
+	 , [D].[DonorWeight]
+     , [D].[BodyTemp]
+     , [D].[SystolicBloodPressure]
+     , [D].[DiaSystolicBloodPressure]
+     , [D].[Pulse]
+     , [D].[Hematocrit]
+     , [D].[TotalProtein]
+     , [D].[BleedNumber]
+     , [D].[VolumePlasmaCollected]
+     , [D].[BloodLoss]
+     , [D].[EnteredBy]
+     , [D].[VerifiedBy]
+     , [D].[EnteredDate]
+     , [D].[VerifiedDate] From [Deleted] As [D]
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE Trigger [dbo].[PCInsert] On [dbo].[PlasmaCollection]
+    After Insert
+As
+Insert [logs].[PlasmaCollectionLog]
+        ( [DonorNumber]
+        , [CollectionID]
+        , [ChangeType]
+        , [CollectionDate]
+        , [DonorWeight]
+        , [BodyTemp]
+        , [SystolicBloodPressure]
+        , [DiaSystolicBloodPressure]
+        , [Pulse]
+        , [Hematocrit]
+        , [TotalProtein]
+        , [BleedNumber]
+        , [VolumePlasmaCollected]
+        , [BloodLoss]
+        , [EnteredBy]
+        , [VerifiedBy]
+        , [EnteredDate]
+        , [VerifiedDate]
+        )
+SELECT [I].[DonorNumber]
+     , [I].[CollectionID]
+     , 'I'
+	 , [I].[CollectionDate]
+	 , [I].[DonorWeight]
+     , [I].[BodyTemp]
+     , [I].[SystolicBloodPressure]
+     , [I].[DiaSystolicBloodPressure]
+     , [I].[Pulse]
+     , [I].[Hematocrit]
+     , [I].[TotalProtein]
+     , [I].[BleedNumber]
+     , [I].[VolumePlasmaCollected]
+     , [I].[BloodLoss]
+     , [I].[EnteredBy]
+     , [I].[VerifiedBy]
+     , [I].[EnteredDate]
+     , [I].[VerifiedDate] From [Inserted] As [I]
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE Trigger [dbo].[PCUpdate] On [dbo].[PlasmaCollection]
+    After Update
+As
+Insert [logs].[PlasmaCollectionLog]
+        ( [DonorNumber]
+        , [CollectionID]
+        , [ChangeType]
+        , [CollectionDate]
+        , [DonorWeight]
+        , [BodyTemp]
+        , [SystolicBloodPressure]
+        , [DiaSystolicBloodPressure]
+        , [Pulse]
+        , [Hematocrit]
+        , [TotalProtein]
+        , [BleedNumber]
+        , [VolumePlasmaCollected]
+        , [BloodLoss]
+        , [EnteredBy]
+        , [VerifiedBy]
+        , [EnteredDate]
+        , [VerifiedDate]
+        )
+SELECT [I].[DonorNumber]
+     , [I].[CollectionID]
+     , 'U'
+	 , [I].[CollectionDate]
+	 , [I].[DonorWeight]
+     , [I].[BodyTemp]
+     , [I].[SystolicBloodPressure]
+     , [I].[DiaSystolicBloodPressure]
+     , [I].[Pulse]
+     , [I].[Hematocrit]
+     , [I].[TotalProtein]
+     , [I].[BleedNumber]
+     , [I].[VolumePlasmaCollected]
+     , [I].[BloodLoss]
+     , [I].[EnteredBy]
+     , [I].[VerifiedBy]
+     , [I].[EnteredDate]
+     , [I].[VerifiedDate] From [Inserted] As [I]
+GO
 ALTER TABLE [dbo].[PlasmaCollection] ADD CONSTRAINT [PKCollectionIdDate] PRIMARY KEY CLUSTERED  ([CollectionID]) ON [PRIMARY]
 GO
 CREATE NONCLUSTERED INDEX [PlasmaCollection_Basic] ON [dbo].[PlasmaCollection] ([DonorNumber], [CollectionID], [CollectionDate]) ON [PRIMARY]
